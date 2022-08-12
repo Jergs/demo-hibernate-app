@@ -5,9 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.List;
-
-public class ReadStudentDemo {
+public class DeleteStudentDemo {
 
     public static void main(String[] args) {
 
@@ -19,15 +17,15 @@ public class ReadStudentDemo {
             Session session = factory.openSession();
 
             session.beginTransaction();
-            Student student = session.get(Student.class, 1);
+            Student student = session.get(Student.class, 4);
 
             System.out.println("Student: " + student.getFirstName() + " " + student.getLastName());
 
-            // HQL example
-            List<Student> theStudents = session.createQuery("from Student s where s.lastName='Wall'" +
-                    "OR s.firstName='Egor' OR s.email LIKE '%luv2code.com'").getResultList();
+            // Deleting student
+            session.delete(student);
 
-            theStudents.forEach(System.out::println);
+            // Delete using query
+            //session.createQuery("delete from Student where id=4").executeUpdate();
 
             session.getTransaction().commit();
 
